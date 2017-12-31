@@ -10,16 +10,30 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/profileName"
-                android:text="bryanhoonlee"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:gravity="center_vertical"
-                android:layout_marginStart="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/profileName"
+                    android:text="bryanhoonlee"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/profileMenu"
+                    android:src="@drawable/ic_options"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+            </RelativeLayout>
+
+
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 </merge>
