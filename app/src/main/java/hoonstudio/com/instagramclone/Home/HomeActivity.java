@@ -13,6 +13,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import hoonstudio.com.instagramclone.R;
 import hoonstudio.com.instagramclone.Utils.BottomNavigationViewHelper;
+import hoonstudio.com.instagramclone.Utils.SectionsPagerAdapter;
 
 public class HomeActivity extends AppCompatActivity {
     private static final String TAG = "HomeActivity";

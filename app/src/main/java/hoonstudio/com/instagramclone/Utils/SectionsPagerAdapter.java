@@ -1,4 +1,4 @@
-package hoonstudio.com.instagramclone.Home;
+package hoonstudio.com.instagramclone.Utils;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,10 +10,10 @@ import java.util.List;
 /**
  * Created by joon on 12/15/2017.
  */
+
 /**
  * Class that stores fragments for tabs
  */
-
 public class SectionsPagerAdapter extends FragmentPagerAdapter{
     private static final String TAG = "SectionsPagerAdapter";
 
