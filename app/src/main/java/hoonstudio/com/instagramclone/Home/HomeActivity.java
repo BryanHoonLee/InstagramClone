@@ -10,10 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import hoonstudio.com.instagramclone.R;
 import hoonstudio.com.instagramclone.Utils.BottomNavigationViewHelper;
 import hoonstudio.com.instagramclone.Utils.SectionsPagerAdapter;
+import hoonstudio.com.instagramclone.Utils.UniversalImageLoader;
 
 public class HomeActivity extends AppCompatActivity {
     private static final String TAG = "HomeActivity";
@@ -26,14 +28,19 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Log.d(TAG, "onCreate: starting.");
 
+        initImageLoader();
         setupBottomNavigationView();
         setupViewPager();
+    }
+
+    private void initImageLoader(){
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
 
     /**
      * Adds 3 tabs: Camera, Home, Messages to Home Activity
      */
-
     private void setupViewPager(){
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new CameraFragment()); //index 0

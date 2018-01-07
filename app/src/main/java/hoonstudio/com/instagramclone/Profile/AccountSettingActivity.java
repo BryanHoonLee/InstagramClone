@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,18 +16,22 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+
 import java.util.ArrayList;
 
 import hoonstudio.com.instagramclone.R;
+import hoonstudio.com.instagramclone.Utils.BottomNavigationViewHelper;
 import hoonstudio.com.instagramclone.Utils.SectionsStatePagerAdapter;
 
 /**
  * Created by joon on 12/30/2017.
  */
 
-public class AccountSettingActivity extends AppCompatActivity{
+public class AccountSettingActivity extends AppCompatActivity {
 
-    private static final String TAG = "AccountSettingActivity";
+    private static final String TAG = "AccountSettingsActivity";
+    private static final int ACTIVITY_NUM = 4;
 
     private Context mContext;
 
@@ -43,14 +49,14 @@ public class AccountSettingActivity extends AppCompatActivity{
         mRelativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout1);
 
         setupSettingsList();
-
+        setupBottomNavigationView();
         setupFragments();
 
-        //setup backarrow for navigating back to "ProfileActivity"
+        //setup the backarrow for navigating back to "ProfileActivity"
         ImageView backArrow = (ImageView) findViewById(R.id.backArrow);
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Log.d(TAG, "onClick: navigating back to 'ProfileActivity'");
                 finish();
             }
@@ -63,32 +69,40 @@ public class AccountSettingActivity extends AppCompatActivity{
         pagerAdapter.addFragment(new SignOutFragment(), getString(R.string.sign_out_fragment)); //fragment 1
     }
 
-    //responsible for navigating to fragment
-    private void setmViewPager(int fragmentNumber){
+    private void setViewPager(int fragmentNumber){
         mRelativeLayout.setVisibility(View.GONE);
-        Log.d(TAG, "setmViewPager: navigating to fragment #: " + fragmentNumber);
-        //instantiates viewpager, sets the adapter and sets up fragments
+        Log.d(TAG, "setViewPager: navigating to fragment #: " + fragmentNumber);
         mViewPager.setAdapter(pagerAdapter);
-        //navigates to chosen fragment
         mViewPager.setCurrentItem(fragmentNumber);
     }
+
     private void setupSettingsList(){
-        Log.d(TAG, "setupSettingsList: initializing Account Settings list");
-        ListView listview = (ListView) findViewById(R.id.lvTextSettings);
+        Log.d(TAG, "setupSettingsList: initializing 'Account Settings' list.");
+        ListView listView = (ListView) findViewById(R.id.lvAccountSettings);
 
         ArrayList<String> options = new ArrayList<>();
         options.add(getString(R.string.edit_profile_fragment)); //fragment 0
-        options.add(getString(R.string.sign_out_fragment));  //fragment 1
+        options.add(getString(R.string.sign_out_fragment)); //fragement 1
 
         ArrayAdapter adapter = new ArrayAdapter(mContext, android.R.layout.simple_list_item_1, options);
-        listview.setAdapter(adapter);
+        listView.setAdapter(adapter);
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d(TAG, "onItemClick: navigating to fragment #: " + i);
-                setmViewPager(i);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick: navigating to fragment#: " + position);
+                setViewPager(position);
             }
         });
+    }
+
+    private void setupBottomNavigationView(){
+        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
+        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavigationViewBar);
+        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
+        BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
+        Menu menu = bottomNavigationViewEx.getMenu();
+        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
+        menuItem.setChecked(true);
     }
 }
