@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.w3c.dom.Text;
 
+import hoonstudio.com.instagramclone.Home.HomeActivity;
 import hoonstudio.com.instagramclone.R;
 
 /**
@@ -59,17 +60,18 @@ public class LoginActivity extends AppCompatActivity{
         init();
     }
 
+    //checks if username or password fields are null / prevents crashing
     private boolean isStringNull(String string){
         if(string.equals("")){
             return true;
         }else{
             return false;
         }
-
     }
+
     private void init(){
 
-        //initializing button for loggin in
+        //initializing button for logging in
         Button btnLogin = (Button) findViewById(R.id.btn_login);
         btnLogin.setOnClickListener(new View.OnClickListener(){
            @Override
@@ -106,6 +108,29 @@ public class LoginActivity extends AppCompatActivity{
                }
            }
         });
+
+
+        /*
+        Navigating to Register Screen
+         */
+        TextView linkSignUp = (TextView) findViewById(R.id.link_signup);
+        linkSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: navigating to register screen");
+                Intent intent = new Intent(mContext, RegistrationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        /*
+        If the user is logged in, then navigate to HomeActivity and call 'finish()'
+         */
+        if(mAuth.getCurrentUser() != null){
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
       /*
     ------------------------------------------ Firebase --------------------------------------------
