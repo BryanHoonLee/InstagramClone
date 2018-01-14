@@ -151,6 +151,7 @@ public class RegistrationActivity extends AppCompatActivity{
 
                             Toast.makeText(mContext, "Signup successful. Sending verification email.", Toast.LENGTH_SHORT).show();
 
+                            mAuth.signOut();
                         }
 
                         @Override
@@ -158,6 +159,9 @@ public class RegistrationActivity extends AppCompatActivity{
 
                         }
                     });
+
+                    finish();
+
                 } else{
                     Log.d(TAG, "onAuthStateChanged: signed_out");
                 }
