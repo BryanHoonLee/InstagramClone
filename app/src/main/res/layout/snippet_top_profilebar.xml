@@ -15,7 +15,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/profileName"
+                    android:id="@+id/username"
                     android:text="bryanhoonlee"
                     android:textColor="@color/black"
                     android:textSize="20sp"

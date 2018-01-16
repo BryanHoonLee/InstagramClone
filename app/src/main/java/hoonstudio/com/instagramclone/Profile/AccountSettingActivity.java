@@ -1,8 +1,10 @@
 package hoonstudio.com.instagramclone.Profile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,12 +18,20 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 
 import hoonstudio.com.instagramclone.R;
 import hoonstudio.com.instagramclone.Utils.BottomNavigationViewHelper;
+import hoonstudio.com.instagramclone.Utils.FirebaseMethods;
 import hoonstudio.com.instagramclone.Utils.SectionsStatePagerAdapter;
 
 /**
@@ -51,6 +61,7 @@ public class AccountSettingActivity extends AppCompatActivity {
         setupSettingsList();
         setupBottomNavigationView();
         setupFragments();
+        getIncomingIntent();
 
         //setup the backarrow for navigating back to "ProfileActivity"
         ImageView backArrow = (ImageView) findViewById(R.id.backArrow);
@@ -61,6 +72,17 @@ public class AccountSettingActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void getIncomingIntent(){
+        //retrieves any incoming intent when this activity gets started
+        Intent intent = getIntent();
+
+        if(intent.hasExtra(getString(R.string.calling_activity))){
+            Log.d(TAG, "getIncomingIntent: received incoming intent from " + getString(R.string.profile_activity));
+            //sets the view to edit profile fragment
+            setViewPager(pagerAdapter.getFragmentNumber(getString(R.string.edit_profile_fragment)));
+        }
     }
 
     private void setupFragments(){
