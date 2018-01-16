@@ -27,6 +27,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.w3c.dom.Text;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import hoonstudio.com.instagramclone.Dialogs.ConfirmPasswordDialog;
 import hoonstudio.com.instagramclone.Models.User;
 import hoonstudio.com.instagramclone.Models.UserAccountSettings;
 import hoonstudio.com.instagramclone.Models.UserSettings;
@@ -122,27 +123,28 @@ public class EditProfileFragment extends Fragment {
         final String email = mEmail.getText().toString();
         final long phoneNumber = Long.parseLong(mPhoneNumber.getText().toString());
 
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
 
+        //case 1: user changed their username
+        //compare what was originally loaded to what is now in the edit text
+        if(!mUserSettings.getUser().getUsername().equals(username)){
+            checkIfUsernameExists(username);
 
-                //case 1: user did not change their username
-                //compare what was originally loaded to what is now in the edit text
-                if(!mUserSettings.getUser().getUsername().equals(username)){
+        }
 
-                    checkIfUsernameExists(username);
+        //case 2: user changed their email
+        if(!mUserSettings.getUser().getEmail().equals(email)){
+            //step 1: reauthenticate
+                //confirm the password and email
+            ConfirmPasswordDialog dialog = new ConfirmPasswordDialog();
+            dialog.show(getFragmentManager(), getString(R.string.confirm_password_dialog));
 
-                }else{
+            //step2 check if the email is already registered
+                //fetchProvidersForEmail(String email)
+
+            //step 3 change the email
+                //submit the new email to the database and authentication
 
                 }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     /**
