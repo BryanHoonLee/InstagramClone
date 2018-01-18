@@ -47,6 +47,7 @@ public class FirebaseMethods {
         }
     }
 
+    //update username in the 'users' node and 'user_account_settings' node
     public void updateUsername(String username){
         Log.d(TAG, "updateUsername: updating username to: " + username);
 
@@ -59,6 +60,16 @@ public class FirebaseMethods {
                 .child(userID)
                 .child(mContext.getString(R.string.field_username))
                 .setValue(username);
+    }
+
+    //update email in 'users' node
+    public void updatEmail(String email){
+        Log.d(TAG, "updatEmail: updating email to: " + email);
+
+        myRef.child(mContext.getString(R.string.dbname_users))
+                .child(userID)
+                .child(mContext.getString(R.string.field_email))
+                .setValue(email);
     }
 
 //    public boolean checkIfUsernameExists(String username, DataSnapshot datasnapshot){
