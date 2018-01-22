@@ -47,6 +47,30 @@ public class FirebaseMethods {
         }
     }
 
+    public void updateUserAccountSettings(String displayName, String website, String description, String username){
+        Log.d(TAG, "updateUserAccountSettings: updating user account settings");
+
+        if(displayName != null){
+            myRef.child(mContext.getString(R.string.dbname_user_account_settings))
+                    .child(userID)
+                    .child(mContext.getString(R.string.field_display_name))
+                    .setValue(displayName);
+        }
+
+        if(description != null) {
+            myRef.child(mContext.getString(R.string.dbname_user_account_settings))
+                    .child(userID)
+                    .child(mContext.getString(R.string.field_description))
+                    .setValue(description);
+        }
+        if(website != null) {
+            myRef.child(mContext.getString(R.string.dbname_user_account_settings))
+                    .child(userID)
+                    .child(mContext.getString(R.string.field_website))
+                    .setValue(website);
+        }
+    }
+
     //update username in the 'users' node and 'user_account_settings' node
     public void updateUsername(String username){
         Log.d(TAG, "updateUsername: updating username to: " + username);
@@ -63,7 +87,7 @@ public class FirebaseMethods {
     }
 
     //update email in 'users' node
-    public void updatEmail(String email){
+    public void updateEmail(String email){
         Log.d(TAG, "updatEmail: updating email to: " + email);
 
         myRef.child(mContext.getString(R.string.dbname_users))

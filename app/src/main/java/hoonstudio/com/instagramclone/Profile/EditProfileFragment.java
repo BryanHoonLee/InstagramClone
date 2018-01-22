@@ -78,9 +78,9 @@ public class EditProfileFragment extends Fragment implements ConfirmPasswordDial
                                             if (task.getResult().getProviders().size() == 1) {
                                                 Log.d(TAG, "onComplete: That email is already in use.");
                                                 Toast.makeText(getActivity(), "That email is already in use", Toast.LENGTH_SHORT).show();
+
                                             }else{
                                                 Log.d(TAG, "onComplete: That email is available");
-
                                             /*
                                             The email is available, update it
                                              */
@@ -91,12 +91,13 @@ public class EditProfileFragment extends Fragment implements ConfirmPasswordDial
                                                                 if (task.isSuccessful()) {
                                                                     Log.d(TAG, "User email address updated.");
                                                                     Toast.makeText(getActivity(), "Email was updated.\nSending Verification Email.", Toast.LENGTH_SHORT).show();
-                                                                    mFirebaseMethods.updatEmail(mEmail.getText().toString());
+                                                                    mFirebaseMethods.updateEmail(mEmail.getText().toString());
                                                                     mFirebaseMethods.sendVerificationEmail();
                                                                 }
                                                             }
                                                         });
                                             }
+
                                         }catch(NullPointerException e){
                                             Log.e(TAG, "onComplete: NullPointerException: " + e.getMessage());
                                         }
@@ -210,11 +211,22 @@ public class EditProfileFragment extends Fragment implements ConfirmPasswordDial
 
             //step2 check if the email is already registered
                 //fetchProvidersForEmail(String email)
-
             //step 3 change the email
                 //submit the new email to the database and authentication
+        }
 
-                }
+        /**
+         *  updates the user account settings if there are changes made in the edit profile layout
+         */
+        if(!mUserSettings.getUserAccountSettings().getDisplay_name().equals(displayName)){
+            mFirebaseMethods.updateUserAccountSettings(displayName, null, null, null);
+        }
+        if(!mUserSettings.getUserAccountSettings().getWebsite().equals(website)){
+            mFirebaseMethods.updateUserAccountSettings(null, website, null, null);
+        }
+        if(!mUserSettings.getUserAccountSettings().getDescription().equals(description)){
+            mFirebaseMethods.updateUserAccountSettings(null, null, description, null);
+        }
     }
 
     /**
