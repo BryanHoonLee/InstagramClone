@@ -58,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
         adapter.addFragment(new CameraFragment()); //index 0
         adapter.addFragment(new HomeFragment()); //index 1
         adapter.addFragment(new MessageFragment()); //index 2
+
         ViewPager viewPager = (ViewPager) findViewById(R.id.container);
         viewPager.setAdapter(adapter);
 

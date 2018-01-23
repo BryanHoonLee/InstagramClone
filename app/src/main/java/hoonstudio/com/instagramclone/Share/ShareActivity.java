@@ -90,7 +90,7 @@ public class ShareActivity extends AppCompatActivity {
                 return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**
