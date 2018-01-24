@@ -46,11 +46,6 @@ public class ProfileActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: started.");
 
         init();
-//        setupToolBar();
-//        setupBottomNavigationView();
-//        setupActivityWidgets();
-//        setProfileImage();
-//        tempGridSetup();
     }
 
     private void init(){
@@ -62,68 +57,4 @@ public class ProfileActivity extends AppCompatActivity {
         transaction.addToBackStack(getString(R.string.profile_fragment));
         transaction.commit();
     }
-//    private void tempGridSetup(){
-//        ArrayList<String> imgURLs = new ArrayList<>();
-//        imgURLs.add("http://i.imgur.com/wVpIicX.jpg");
-//        imgURLs.add("https://i.redd.it/9d9w6pkirihz.jpg");
-//        imgURLs.add("https://i.redd.it/mfqm1x49akgy.jpg");
-//        imgURLs.add("https://i.redd.it/jh0gfb3ktvkz.jpg");
-//        imgURLs.add("https://imgur.com/ppqan5G");
-//        imgURLs.add("https://imgur.com/lprvIce");
-//        imgURLs.add("http://i.imgur.com/jgh1fin.jpg");
-//        imgURLs.add("https://c1.staticflickr.com/5/4403/36388952880_c9d523338f_o.jpg");
-//        imgURLs.add("https://i.redd.it/9i1bnqswc1oz.jpg");
-//
-//        setupImageGrid(imgURLs);
-//    }
-//    private void setupImageGrid(ArrayList<String> imgURLs){
-//        GridView gridView = (GridView) findViewById(R.id.gridView);
-//
-//        //Divides image size by a 3rd of device screen width
-//        int gridWidth = getResources().getDisplayMetrics().widthPixels;
-//        int imageWidth = gridWidth/NUM_GRID_COLUMNS;
-//        gridView.setColumnWidth(imageWidth);
-//
-//        GridImageAdapter adapter = new GridImageAdapter(mContext, R.layout.layout_grid_imageview, "", imgURLs);
-//        gridView.setAdapter(adapter);
-//    }
-//
-//    private void setProfileImage(){
-//        Log.d(TAG, "setProfileImage: setting profile photo");
-//        String imgURL = "www.androidcentral.com/sites/androidcentral.com/files/styles/xlarge/public/article_images/2016/08/ac-lloyd.jpg?itok=bb72IeLf";
-//        UniversalImageLoader.setImage(imgURL, profilePhoto, mProgressBar, "https://");
-//    }
-//
-//    private void setupActivityWidgets(){
-//        mProgressBar = (ProgressBar) findViewById(R.id.profileProgressBar);
-//        mProgressBar.setVisibility(View.GONE);
-//        profilePhoto = (ImageView) findViewById(R.id.profile_photo);
-//    }
-//
-//
-//    private void setupToolBar(){
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.profileToolBar);
-//        setSupportActionBar(toolbar);
-//
-//        ImageView profileMenu = (ImageView) findViewById(R.id.profileMenu);
-//        profileMenu.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d(TAG, "onClick: navigating to account settings.");
-//                Intent intent = new Intent(mContext, AccountSettingActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
-//
-//    private void setupBottomNavigationView(){
-//        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
-//        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavigationViewBar);
-//        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-//        BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
-//        Menu menu = bottomNavigationViewEx.getMenu();
-//        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
-//        menuItem.setChecked(true);
-//    }
-
 }
