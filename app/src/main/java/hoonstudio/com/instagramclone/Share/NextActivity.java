@@ -76,6 +76,27 @@ public class NextActivity extends AppCompatActivity {
         ImageView image = (ImageView) findViewById(R.id.imageShare);
         UniversalImageLoader.setImage(intent.getStringExtra(getString(R.string.selected_image)), image, null, mAppend);
     }
+
+    private void someMethod(){
+        /*
+        Step 1)
+        Create a data model for photos
+
+        Step 2)
+        Add properties to the photo objects (captions, date, imageURL, photo_id, tags, user_id)
+
+        Step 3)
+        Count the number of photos that the user already has.
+
+        Step 4)
+        a) Upload the photo to Firebase Storage and insert two new nodes in the Firebase Database
+        b) insert into 'photo' node
+        c) insert into 'user_photos' node
+         */
+
+
+    }
+
          /*
     ------------------------------------------ Firebase --------------------------------------------
      */
