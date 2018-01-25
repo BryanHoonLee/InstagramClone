@@ -38,11 +38,13 @@ public class NextActivity extends AppCompatActivity {
 
     //variables
     private String mAppend = "file:/";
+    private int imageCount = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_next);
+        mFirebaseMethods = new FirebaseMethods(NextActivity.this);
 
         setupFirebaseAuth();
 
@@ -109,6 +111,7 @@ public class NextActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference();
+        Log.d(TAG, "onDataChange: image count: " + imageCount);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -116,7 +119,6 @@ public class NextActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 //check if the user is logged in
-
                 if(user != null){
                     //User is signed in
                     Log.d(TAG, "onAuthStateChanged: signed_in: " + user.getUid());
@@ -130,6 +132,8 @@ public class NextActivity extends AppCompatActivity {
             @Override
             //once fragment opens, retrieve user info from database
             public void onDataChange(DataSnapshot dataSnapshot) {
+                imageCount = mFirebaseMethods.getImageCount(dataSnapshot);
+                Log.d(TAG, "onDataChange: image count: " + imageCount);
 
             }
 
