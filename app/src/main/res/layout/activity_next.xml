@@ -39,7 +39,7 @@
                     android:layout_height="100dp" />
 
                 <EditText
-                    android:id="@+id/description"
+                    android:id="@+id/caption"
                     android:hint="Write a description"
                     android:layout_marginLeft="20dp"
                     android:layout_centerVertical="true"
