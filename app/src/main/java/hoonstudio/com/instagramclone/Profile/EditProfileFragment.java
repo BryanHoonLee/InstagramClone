@@ -1,5 +1,6 @@
 package hoonstudio.com.instagramclone.Profile;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,6 +38,7 @@ import hoonstudio.com.instagramclone.Models.User;
 import hoonstudio.com.instagramclone.Models.UserAccountSettings;
 import hoonstudio.com.instagramclone.Models.UserSettings;
 import hoonstudio.com.instagramclone.R;
+import hoonstudio.com.instagramclone.Share.ShareActivity;
 import hoonstudio.com.instagramclone.Utils.FirebaseMethods;
 import hoonstudio.com.instagramclone.Utils.UniversalImageLoader;
 
@@ -179,6 +181,17 @@ public class EditProfileFragment extends Fragment implements ConfirmPasswordDial
         mDescription.setText(userAccountSettings.getDescription());
         mEmail.setText(userSettings.getUser().getEmail());
         mPhoneNumber.setText(String.valueOf(userSettings.getUser().getPhone_number()));
+
+        mChangeProfilePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: changing profile photo");
+                Intent intent = new Intent(getActivity(), ShareActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getActivity().startActivity(intent);
+
+            }
+        });
     }
 
     /**
