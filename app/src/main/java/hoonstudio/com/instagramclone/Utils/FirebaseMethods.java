@@ -22,6 +22,12 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
+import hoonstudio.com.instagramclone.Models.Photo;
 import hoonstudio.com.instagramclone.Models.User;
 import hoonstudio.com.instagramclone.Models.UserAccountSettings;
 import hoonstudio.com.instagramclone.Models.UserSettings;
@@ -70,7 +76,34 @@ public class FirebaseMethods {
         return count;
     }
 
-    public void uploadNewPhoto(String photoType, String caption, int count, String imgURL){
+    private String getTimeStamp(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
+        sdf.setTimeZone(TimeZone.getTimeZone("US/Pacific"));
+        return sdf.format(new Date());
+    }
+
+    private void addPhotoToDatabase(String caption, String url){
+        Log.d(TAG, "addPhotoToDatabase: adding photo to database.");
+
+        String tags = "";
+
+        //push() creates new key then getkey gets the key.
+        String newPhotoKey = myRef.child(mContext.getString(R.string.dbname_photos)).push().getKey();
+        Photo photo = new Photo();
+        photo.setCaption(caption);
+        photo.setDate_created(getTimeStamp());
+        photo.setImage_path(url);
+        photo.setTags(tags);
+        photo.setUser_id(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        photo.setPhoto_id(newPhotoKey);
+
+        //insert into database
+        myRef.child(mContext.getString(R.string.dbname_user_photos)).child(FirebaseAuth
+                .getInstance().getCurrentUser().getUid()).child(newPhotoKey).setValue(photo);
+        myRef.child(mContext.getString(R.string.dbname_photos)).child(newPhotoKey).setValue(photo);
+    }
+
+    public void uploadNewPhoto(String photoType, final String caption, final int count, final String imgURL){
         Log.d(TAG, "uploadNewPhoto: attempting to upload new photo");
 
         FilePaths filePaths = new FilePaths();
@@ -97,6 +130,7 @@ public class FirebaseMethods {
                     Toast.makeText(mContext, "photo upload sucess", Toast.LENGTH_SHORT).show();
 
                     //add new photo to 'photos' node and 'user_photos' node
+                    addPhotoToDatabase(caption, firebaseURL.toString());
 
                     //navigate to the main feed so user can see their photo
                 }
