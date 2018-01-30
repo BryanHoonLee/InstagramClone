@@ -84,8 +84,8 @@ then conntect third row Edit your profile textview to above textview and sides a
 
         <TextView
             android:id="@+id/textEditProfile"
-            android:layout_width="138dp"
-            android:layout_height="21dp"
+            android:layout_width="match_parent"
+            android:layout_height="23dp"
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"

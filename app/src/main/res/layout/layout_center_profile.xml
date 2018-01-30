@@ -22,24 +22,25 @@
                 android:layout_height="wrap_content">
 
                 <RelativeLayout
-                    android:layout_marginStart="25dp"
-                    android:layout_weight="25"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="30"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_photo"
                         app:civ_border_color="@color/black"
-                        app:civ_border_width="2dp"
+                        app:civ_border_width="0.5dp"
                         android:layout_centerVertical="true"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp" />
+                        android:layout_width="100dp"
+                        android:layout_height="100dp" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
-                    android:layout_weight="75"
+                    android:layout_weight="70"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
                     <include layout="@layout/snippet_top_profile"/>

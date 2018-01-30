@@ -33,6 +33,7 @@ import hoonstudio.com.instagramclone.Models.Photo;
 import hoonstudio.com.instagramclone.Models.User;
 import hoonstudio.com.instagramclone.Models.UserAccountSettings;
 import hoonstudio.com.instagramclone.Models.UserSettings;
+import hoonstudio.com.instagramclone.Profile.AccountSettingActivity;
 import hoonstudio.com.instagramclone.R;
 
 /**
@@ -162,6 +163,11 @@ public class FirebaseMethods {
             //case 2) new profile photo
         }else if(photoType.equals(mContext.getString(R.string.profile_photo))){
             Log.d(TAG, "uploadNewPhoto: uploading new profile photo");
+
+            ((AccountSettingActivity)mContext).setViewPager(
+                    ((AccountSettingActivity)mContext).pagerAdapter
+                            .getFragmentNumber(mContext.getString(R.string.edit_profile_fragment))
+            );
 
             String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
             StorageReference storageReference = mStorageReference
