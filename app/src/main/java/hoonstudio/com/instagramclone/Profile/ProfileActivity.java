@@ -20,17 +20,36 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 
+import hoonstudio.com.instagramclone.Models.Photo;
 import hoonstudio.com.instagramclone.R;
 import hoonstudio.com.instagramclone.Utils.BottomNavigationViewHelper;
 import hoonstudio.com.instagramclone.Utils.GridImageAdapter;
 import hoonstudio.com.instagramclone.Utils.UniversalImageLoader;
+import hoonstudio.com.instagramclone.ViewPostFragment;
 
 /**
  * Created by joon on 12/15/2017.
  */
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements ProfileFragment.OnGridImageSelectedListener{
     private static final String TAG = "ProfileActivity";
+
+    @Override
+    public void onGridImageSelected(Photo photo, int activityNumber) {
+        Log.d(TAG, "onGridImageSelected: Selected an image from gridview: " + photo.toString());
+
+        ViewPostFragment fragment = new ViewPostFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(getString(R.string.photo), photo);
+        args.putInt(getString(R.string.calling_activity), activityNumber);
+        fragment.setArguments(args);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.addToBackStack(getString(R.string.view_post_fragment));
+        transaction.commit();
+    }
+
     private static final int ACTIVITY_NUM = 4;
     private static final int NUM_GRID_COLUMNS = 3;
     private ImageView profilePhoto;
@@ -57,4 +76,5 @@ public class ProfileActivity extends AppCompatActivity {
         transaction.addToBackStack(getString(R.string.profile_fragment));
         transaction.commit();
     }
+
 }
