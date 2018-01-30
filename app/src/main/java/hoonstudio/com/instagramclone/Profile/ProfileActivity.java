@@ -41,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileFragmen
         ViewPostFragment fragment = new ViewPostFragment();
         Bundle args = new Bundle();
         args.putParcelable(getString(R.string.photo), photo);
-        args.putInt(getString(R.string.calling_activity), activityNumber);
+        args.putInt(getString(R.string.activity_number), activityNumber);
         fragment.setArguments(args);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
