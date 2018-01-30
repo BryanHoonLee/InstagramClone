@@ -106,7 +106,8 @@ public class FirebaseMethods {
         myRef.child(mContext.getString(R.string.dbname_photos)).child(newPhotoKey).setValue(photo);
     }
 
-    public void uploadNewPhoto(String photoType, final String caption, final int count, final String imgURL){
+    public void uploadNewPhoto(String photoType, final String caption, final int count, final String imgURL,
+                                 Bitmap bm){
         Log.d(TAG, "uploadNewPhoto: attempting to upload new photo");
 
         FilePaths filePaths = new FilePaths();
@@ -119,7 +120,10 @@ public class FirebaseMethods {
                     .child(filePaths.FIREBASE_IMAGE_STORAGE + "/" + user_id + "/photo" + (count + 1));
 
             //convert image url to bitmap
-            Bitmap bm = ImageManager.getBitmap(imgURL);
+            if(bm == null){
+                bm = ImageManager.getBitmap(imgURL);
+            }
+
             byte[] bytes = ImageManager.getBytesFromBitmap(bm, 100);
 
             UploadTask uploadTask = null;
@@ -164,17 +168,14 @@ public class FirebaseMethods {
         }else if(photoType.equals(mContext.getString(R.string.profile_photo))){
             Log.d(TAG, "uploadNewPhoto: uploading new profile photo");
 
-            ((AccountSettingActivity)mContext).setViewPager(
-                    ((AccountSettingActivity)mContext).pagerAdapter
-                            .getFragmentNumber(mContext.getString(R.string.edit_profile_fragment))
-            );
-
             String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
             StorageReference storageReference = mStorageReference
                     .child(filePaths.FIREBASE_IMAGE_STORAGE + "/" + user_id + "/profile_photo");
 
             //convert image url to bitmap
-            Bitmap bm = ImageManager.getBitmap(imgURL);
+            if(bm == null){
+                bm = ImageManager.getBitmap(imgURL);
+            }
             byte[] bytes = ImageManager.getBytesFromBitmap(bm, 100);
 
             UploadTask uploadTask = null;
@@ -189,6 +190,11 @@ public class FirebaseMethods {
 
                     //insert into 'user_account_settings' node
                     setProfilePhoto(firebaseURL.toString());
+
+                    ((AccountSettingActivity)mContext).setViewPager(
+                            ((AccountSettingActivity)mContext).pagerAdapter
+                                    .getFragmentNumber(mContext.getString(R.string.edit_profile_fragment))
+                    );
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
