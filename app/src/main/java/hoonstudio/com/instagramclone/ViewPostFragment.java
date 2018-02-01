@@ -15,6 +15,13 @@ import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 import hoonstudio.com.instagramclone.Models.Photo;
 import hoonstudio.com.instagramclone.Utils.BottomNavigationViewHelper;
 import hoonstudio.com.instagramclone.Utils.SquareImageView;
@@ -69,6 +76,7 @@ public class ViewPostFragment extends Fragment{
         }
 
         setupBottomNavigationView();
+        setupWidgets();
 
         return view;
     }
@@ -88,6 +96,40 @@ public class ViewPostFragment extends Fragment{
         }
     }
 
+    private void setupWidgets(){
+        String timeStampDifference = getTimeStampDifference();
+        if(!timeStampDifference.equals("0")){
+            mTimeStamp.setText(timeStampDifference + " DAYS AGO");
+        }else{
+            mTimeStamp.setText("TODAY");
+        }
+    }
+
+    /**
+     * Returns a string representing the number of days ago the post was made
+     * @return
+     */
+    private String getTimeStampDifference(){
+        Log.d(TAG, "getTimeStampDifference: getting timestamp difference");
+
+        String difference = "";
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
+        Date timeStamp;
+        Date today = c.getTime();
+        sdf.format(today);
+        //google 'android list of timezones github'
+        sdf.setTimeZone(TimeZone.getTimeZone("US/Pacific"));
+        final String photoTimeStamp = mPhoto.getDate_created();
+        try{
+            timeStamp = sdf.parse(photoTimeStamp);
+            difference = String.valueOf(Math.round(((today.getTime() - timeStamp.getTime()) / 1000 / 60 / 60 /24)));
+        }catch (ParseException e){
+            Log.e(TAG, "getTimeStampDifference: ParseException: " + e.getMessage());
+            difference = "0";
+        }
+        return difference;
+    }
 
     /**
      * retrieve activity number from incoming bundle

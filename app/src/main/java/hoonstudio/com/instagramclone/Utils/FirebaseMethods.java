@@ -280,30 +280,6 @@ public class FirebaseMethods {
                 .setValue(email);
     }
 
-//    public boolean checkIfUsernameExists(String username, DataSnapshot datasnapshot){
-//        Log.d(TAG, "checkIfUsernameExists: checking if username already exists");
-//
-//        User user = new User();
-//
-//        //will go through one node, then the next node and so on in firebase database.
-//        for(DataSnapshot ds: datasnapshot.child(userID).getChildren()){
-//            Log.d(TAG, "checkIfUsernameExists: datasnapshot: " + ds);
-//
-//            user.setUsername(ds.getValue(User.class).getUsername());
-//            Log.d(TAG, "checkIfUsernameExists: username: " + user.getUsername());
-//
-//            /*
-//            * comparing the username passed through the method with all the ones in the
-//            * database
-//            */
-//            if(StringManipulation.expandUsername(user.getUsername()).equals(username)){
-//                Log.d(TAG, "checkIfUsernameExists: FOUND A MATCH: " + user.getUsername());
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
     /**
      * Register a new email and password to Firebase Authentication
      * @param email
